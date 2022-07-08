@@ -114,7 +114,7 @@ const Page1 = () => {
 
                 <button onClick={() => handlerFind()}>Convert</button>
             </div>
-            {showAxiosData.length!==0&&<div style={{margin:'15px'}}>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0].toFixed(2)} ${pairs[1]}; rate: ${showAxiosData[1].toFixed(3)}`}</div>}
+            {showAxiosData.length!==0&&<div style={{margin:'15px'}}>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0].toFixed(2)} ${pairs[1]}; rate: ${showAxiosData[1].toFixed(4)}`}</div>}
 
         </>
     );

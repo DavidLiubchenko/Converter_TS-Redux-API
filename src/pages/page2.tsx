@@ -6,9 +6,8 @@ import S from '../styles/dataLines.module.scss'
 const Page2 = () => {
     const [formattingName, setFormattingName] = useState(['']);
     const [formattingValues, setFormattingValues] = useState([0]);
-
+    const currentlyCurrency = useSelector((state: RootState) => state.modal.currency.value)
     const fetchData = useSelector((state: RootState) => state.modal.fetchResponse.value)
-    const currCurrency = useSelector((state: RootState) => state.modal.currency.value)
 
     useEffect(() => {
         let arrN = [];
@@ -25,7 +24,7 @@ const Page2 = () => {
     return (
         <div>
             {formattingName.map((el, idx) => <div style={{display: "flex"}}>
-                <div className={S.line}>{`Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx].toFixed(2)} ${currCurrency}`}</div>
+                <div className={S.line}>{`Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx].toFixed(2)} ${currentlyCurrency}`}</div>
             </div>)}
         </div>
     );
