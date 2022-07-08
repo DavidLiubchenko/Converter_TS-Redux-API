@@ -21,7 +21,7 @@ export const Modal = () => {
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                             dispatch(updateCurrency(event.target.value));
                             dispatch(disableModal())
-                        }}>
+                        }} className={S.selector}>
                     <option value=''>Select</option>
                     <option>USD</option>
                     <option>UAH</option>

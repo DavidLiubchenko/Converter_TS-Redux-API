@@ -106,7 +106,7 @@ const Page1 = () => {
                     <select defaultValue={currentlyCurrency}
                             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
                                 setBaseCurr(event.target.value);
-                            }}>
+                            }} className={S.selector}>
                         <option>{currentlyCurrency}</option>
                         {data.map(el => <option key={el}>{el}</option>)}
                     </select>
@@ -114,7 +114,7 @@ const Page1 = () => {
 
                 <button onClick={() => handlerFind()}>Convert</button>
             </div>
-            {showAxiosData.length!==0&&<div>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0]} ${pairs[1]}; rate: ${showAxiosData[1]}`}</div>}
+            {showAxiosData.length!==0&&<div style={{margin:'15px'}}>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0].toFixed(2)} ${pairs[1]}; rate: ${showAxiosData[1].toFixed(3)}`}</div>}
 
         </>
     );

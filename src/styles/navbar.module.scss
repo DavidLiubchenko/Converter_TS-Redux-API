@@ -1,11 +1,15 @@
+@import "globalStyles.module";
+
 .nav{
-  background-color: goldenrod;
+  background-color: darkgray;
+
 
   ul{
     display: flex;
     margin: 0;
     align-items: flex-end;
     justify-content: space-between;
+    padding: 5px 0 10px;
 
     li{
       margin-left: 20px;
@@ -14,6 +18,18 @@
 
       a{
         text-decoration: none;
+        :visited{
+          color: black;
+        }
+        :focus {
+          color: $orange;
+        }
+        :hover{
+          color: white;
+        }
+        :active{
+          color: $orange;
+        }
       }
     }
   }

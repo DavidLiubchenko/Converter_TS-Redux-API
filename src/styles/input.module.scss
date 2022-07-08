@@ -1,8 +1,15 @@
-.form{
+@import "globalStyles.module";
+@import "selector.module";
+
+.form {
   margin: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  div{
+    margin: 3px;
+  }
 
   input[type="text"] {
     padding: 0.375rem 0.75rem;
@@ -19,23 +26,25 @@
 
   button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: $orange;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     box-shadow: 0 2px #d7d6d6;
   }
 
-  button:hover {background-color: #3e8e41}
+  button:hover {
+    background-color: $orangeActive
+  }
 
   button:active {
-    background-color: #3e8e41;
+    background-color: $orangeActive;
     box-shadow: 0 2px #666;
     transform: translateY(4px);
   }

@@ -5,6 +5,7 @@ import {data} from "../data/pairs";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../app/store";
 import {updateCurrency} from '../features/modal/modalSlice'
+import styleSelector from '../styles/selector.module.scss'
 
 export const Navbar: React.FC = () => {
 
@@ -26,8 +27,11 @@ export const Navbar: React.FC = () => {
                 </li>
                 <li>
                     <select defaultValue={currentlyCurrency}
-                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-                            {dispatch(updateCurrency(event.target.value))}}>
+                            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                                dispatch(updateCurrency(event.target.value))
+                            }}
+                            className={styleSelector.selector}
+                    >
                         <option>{currentlyCurrency}</option>
                         {data.map(el => <option key={el}>{el}</option>)}
                     </select>

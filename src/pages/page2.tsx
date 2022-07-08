@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import {RootState} from "../app/store";
+import S from '../styles/dataLines.module.scss'
 
 const Page2 = () => {
     const [formattingName, setFormattingName] = useState(['']);
@@ -24,7 +25,7 @@ const Page2 = () => {
     return (
         <div>
             {formattingName.map((el, idx) => <div style={{display: "flex"}}>
-                <div>{`Index:${idx}, Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx]} ${currCurrency}`}</div>
+                <div className={S.line}>{`Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx].toFixed(2)} ${currCurrency}`}</div>
             </div>)}
         </div>
     );
