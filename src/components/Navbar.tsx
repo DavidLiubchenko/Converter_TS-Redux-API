@@ -1,42 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 // @ts-ignore
 import S from './navbar.module.scss'
 import {Link} from "react-router-dom";
 import {data} from "../store/pairs";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
-// import {fetchCurrencies, updateCurrency, updateFetchData} from '../store/modalSlice'
-import { updateCurrency, updateFetchData} from '../store/modalSlice'
+import {fetchCurrencies, updateCurrency} from '../store/modalSlice'
 // @ts-ignore
 import styleSelector from '../styles/selector.module.scss'
 
 export const Navbar: React.FC = () => {
+    const [state, setState] = useState('');
 
     const currentlyCurrency = useSelector((state: RootState) => state.modal.currency.value)
-    const arrCurrencies = useSelector((state: RootState) => state.modal.fetchCurrencies.value)
+    const arrCurrencies = useSelector((state: RootState) => state.modal.currencies.value)
     const dispatch = useDispatch()
 
-    // const updateData=()=> {
-    //     let myHeaders = new Headers();
-    //     myHeaders.append("apikey", "NxGoLaAw5MBMAgNBoqxFBjISYUBpViZD");
-    //
-    //     let requestOptions = {
-    //         method: 'GET',
-    //         redirect: 'follow',
-    //         headers: myHeaders
-    //     };
-    //     if (currentlyCurrency.length) {
-    //         // @ts-ignore
-    //         fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${arrCurrencies}&base=${currentlyCurrency}`, requestOptions)
-    //             .then(response => response.json())
-    //             .then(result => {
-    //                 // @ts-ignore
-    //                 dispatch(updateFetchData(result.rates))
-    //             })
-    //             .catch(error => console.log('error', error));
-    //     }
-    // }
-    // const requestStatus = useSelector((state: RootState) => state.modal.requestStatus.value)
+    console.log('currentlyCurrency',currentlyCurrency)
+    console.log('arrCurrencies',arrCurrencies)
+    console.log('state',state)
 
     return (
         <nav className={S.nav}>
@@ -54,9 +36,9 @@ export const Navbar: React.FC = () => {
                 <li>
                     <select defaultValue={currentlyCurrency}
                             onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                                dispatch(updateCurrency(event.target.value));
                                 // @ts-ignore
-                                // dispatch(fetchCurrencies(arrCurrencies,currentlyCurrency))
+                                dispatch(fetchCurrencies([arrCurrencies,event.target.value]))
+                                setState(event.target.value)
                             }}
                             className={styleSelector.selector}
                     >

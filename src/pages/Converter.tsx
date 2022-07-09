@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 // @ts-ignore
 import S from '../styles/input.module.scss'
 // @ts-ignore
 import {data} from '../store/pairs.tsx'
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {RootState} from "../store/store";
-import {updateFetchData} from '../store/modalSlice'
 
 const placeHolder = '100 usd'
 
 const Converter = () => {
     const currentlyCurrency = useSelector((state: RootState) => state.modal.currency.value)
-    const arrCurrencies = useSelector((state: RootState) => state.modal.fetchCurrencies.value)
-    const dispatch = useDispatch()
     const [userText, setUserText] = useState<string>('');
     const [baseCurr, setBaseCurr] = useState<string>(currentlyCurrency)
     const [convertValue, setConvertValue] = useState<string>('')
@@ -45,28 +42,7 @@ const Converter = () => {
 
     }
 
-    useEffect(() => {
-        let myHeaders = new Headers();
-        myHeaders.append("apikey", "NxGoLaAw5MBMAgNBoqxFBjISYUBpViZD");
-
-        let requestOptions = {
-            method: 'GET',
-            redirect: 'follow',
-            headers: myHeaders
-        };
-        if (currentlyCurrency.length) {
-            // @ts-ignore
-            fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${arrCurrencies}&base=${currentlyCurrency}`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    // @ts-ignore
-                    dispatch(updateFetchData(result.rates))
-                })
-                .catch(error => console.log('error', error));
-        }
-    }, [currentlyCurrency]);
-
-    const fetchCurrency = () => {
+    const fetchPair = () => {
         let myHeaders = new Headers();
         myHeaders.append("apikey", "NxGoLaAw5MBMAgNBoqxFBjISYUBpViZD");
 
@@ -88,7 +64,7 @@ const Converter = () => {
     }
 
     if (pairs.length && showAxiosData.length === 0) {
-        fetchCurrency()
+        fetchPair()
     }
 
     return (

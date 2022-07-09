@@ -1,5 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
+import {action} from "typesafe-actions";
+import {json} from "stream/consumers";
+import {useDispatch} from "react-redux";
 
 export interface ModalState {
     visibleModal: {
@@ -8,13 +11,15 @@ export interface ModalState {
     currency: {
         value: string
     },
-    fetchCurrencies: {
+    currencies: {
         value: string
     },
     fetchResponse: {
         value: any
     },
-
+    status: {
+        value: 'idle' | 'loading' | 'succeeded' | 'failed',
+    }
 }
 
 const initialState: ModalState = {
@@ -24,12 +29,15 @@ const initialState: ModalState = {
     currency: {
         value: ''
     },
-    fetchCurrencies: {
+    currencies: {
         value: 'PLN%2CUSD%2CUAH%2CEUR%2CRUB'
     },
     fetchResponse: {
         value: []
     },
+    status: {
+        value: 'idle'
+    }
 
 }
 
@@ -41,12 +49,15 @@ let requestOptions = {
     redirect: 'follow',
     headers: myHeaders
 };
+const dispatch = useDispatch()
 
-// export const fetchCurrencies = createAsyncThunk('posts/fetchPosts', async (arrCurrencies:string,currentlyCurrency) => {
-//     // @ts-ignore
-//     const response = await fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${arrCurrencies}&base=${currentlyCurrency}`, requestOptions)
-//     return response.json()
-// })
+export const fetchCurrencies = createAsyncThunk('updateCurrencies', async (arrCurrencies:string[]) => {
+    // @ts-ignore
+    const response = await fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${arrCurrencies[0]}&base=${arrCurrencies[1]}`, requestOptions)
+    dispatch(updateCurrencies(response.json()))
+    console.log(response.json())
+    return response.json()
+})
 
 export const modalSlice = createSlice({
     name: 'modal',
@@ -58,12 +69,12 @@ export const modalSlice = createSlice({
         updateCurrency: (state, action: PayloadAction<string>) => {
             state.currency.value = action.payload
         },
-        updateFetchData: (state, action: PayloadAction<string>) => {
+        updateCurrencies: (state ,action:PayloadAction<string>)=>{
             state.fetchResponse.value = action.payload
-        },
+        }
     },
 })
 
-export const {disableModal, updateCurrency, updateFetchData} = modalSlice.actions
+export const {disableModal, updateCurrency, updateCurrencies} = modalSlice.actions
 
 export default modalSlice.reducer

@@ -3,20 +3,20 @@ import {Route, Routes} from "react-router-dom";
 import Converter from "./pages/Converter";
 import CurrentRates from "./pages/CurrentRates";
 
-interface LayoutProps  {
+interface ILayoutProps {
     children: React.ReactNode
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout: React.FC<ILayoutProps> = ({children}) => {
     return (
-        <div>
+        <>
             {children}
-        </div>
+        </>
     );
 };
 
-const MainLayout =()=>{
-    return(
+const MainLayout = () => {
+    return (
         <Layout children={
             <Routes>
                 <Route path="/" element={<Converter/>}/>
