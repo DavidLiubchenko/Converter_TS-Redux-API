@@ -1,20 +1,16 @@
 import React from 'react';
 import {Navbar} from "./components/Navbar";
-import {Modal} from "./components/modal";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Page1 from "./pages/page1";
-import Page2 from "./pages/page2";
+import {Modal} from "./components/Modal";
+import Layout from './Layout'
 
-function App() {
+const App=()=> {
     return (
-        <BrowserRouter>
+        <>
             <Modal/>
             <Navbar/>
-            <Routes>
-                <Route path="/" element={<Page1/>}/>
-                <Route path="/second" element={<Page2/>}/>
-            </Routes>
-        </BrowserRouter>
+            <Layout />
+        </>
+
     );
 }
 

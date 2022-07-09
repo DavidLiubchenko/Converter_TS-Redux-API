@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
+// @ts-ignore
 import S from '../styles/input.module.scss'
-import {data} from '../data/pairs.jsx'
+// @ts-ignore
+import {data} from '../store/pairs.tsx'
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../app/store";
-import {updateFetchData} from '../features/modal/modalSlice'
+import {RootState} from "../store/store";
+import {updateFetchData} from '../store/modalSlice'
 
 const placeHolder = '100 usd'
 
-const Page1 = () => {
+const Converter = () => {
     const currentlyCurrency = useSelector((state: RootState) => state.modal.currency.value)
     const arrCurrencies = useSelector((state: RootState) => state.modal.fetchCurrencies.value)
     const dispatch = useDispatch()
@@ -30,14 +32,14 @@ const Page1 = () => {
         let findData: string[] = [];
         text.forEach(el => {
             if (el.length === 3) {
-                let index = data.findIndex(data => data.toUpperCase() === el.toUpperCase())
+                let index = data.findIndex((data:string) => data.toUpperCase() === el.toUpperCase())
                 if (index !== -1) {
                     findData.push(data[index])
                 }
             }
         })
-        if(findData.length) {
-            setPairs([findData[0], baseCurr||currentlyCurrency])
+        if (findData.length) {
+            setPairs([findData[0], baseCurr || currentlyCurrency])
         }
         setUserText('')
 
@@ -64,11 +66,7 @@ const Page1 = () => {
         }
     }, [currentlyCurrency]);
 
-    if(pairs.length&&showAxiosData.length===0){
-        fetchCurrency()
-    }
-
-    function fetchCurrency() {
+    const fetchCurrency = () => {
         let myHeaders = new Headers();
         myHeaders.append("apikey", "NxGoLaAw5MBMAgNBoqxFBjISYUBpViZD");
 
@@ -78,7 +76,7 @@ const Page1 = () => {
             headers: myHeaders
         };
 
-        setTimeout(()=>{
+        setTimeout(() => {
             // @ts-ignore
             fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${pairs[1]}&from=${pairs[0]}&amount=${convertValue}`, requestOptions)
                 .then(response => response.json())
@@ -87,6 +85,10 @@ const Page1 = () => {
                 })
                 .catch(error => console.log('error', error));
         })
+    }
+
+    if (pairs.length && showAxiosData.length === 0) {
+        fetchCurrency()
     }
 
     return (
@@ -108,17 +110,18 @@ const Page1 = () => {
                                 setBaseCurr(event.target.value);
                             }} className={S.selector}>
                         <option>{currentlyCurrency}</option>
-                        {data.map(el => <option key={el}>{el}</option>)}
+                        {data.map((el:string) => <option key={el}>{el}</option>)}
                     </select>
                 </div>
 
                 <button onClick={() => handlerFind()}>Convert</button>
             </div>
-            {showAxiosData.length!==0&&<div style={{margin:'15px'}}>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0].toFixed(2)} ${pairs[1]}; rate: ${showAxiosData[1].toFixed(4)}`}</div>}
+            {showAxiosData.length !== 0 && <div
+                style={{margin: '15px'}}>{`${convertValue} ${pairs[0]} to ${pairs[1]} = ${showAxiosData[0].toFixed(2)} ${pairs[1]}; rate: ${showAxiosData[1].toFixed(4)}`}</div>}
 
         </>
     );
 };
 
-export default Page1
+export default Converter
 

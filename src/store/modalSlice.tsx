@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
 
 export interface ModalState {
@@ -13,7 +13,8 @@ export interface ModalState {
     },
     fetchResponse: {
         value: any
-    }
+    },
+
 }
 
 const initialState: ModalState = {
@@ -28,8 +29,24 @@ const initialState: ModalState = {
     },
     fetchResponse: {
         value: []
-    }
+    },
+
 }
+
+let myHeaders = new Headers();
+myHeaders.append("apikey", "NxGoLaAw5MBMAgNBoqxFBjISYUBpViZD");
+
+let requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+    headers: myHeaders
+};
+
+// export const fetchCurrencies = createAsyncThunk('posts/fetchPosts', async (arrCurrencies:string,currentlyCurrency) => {
+//     // @ts-ignore
+//     const response = await fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols=${arrCurrencies}&base=${currentlyCurrency}`, requestOptions)
+//     return response.json()
+// })
 
 export const modalSlice = createSlice({
     name: 'modal',

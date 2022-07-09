@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
-import S from '../styles/modal.module.scss'
-import {data} from '../data/pairs.jsx'
+import React from 'react';
+// @ts-ignore
+import S from './modal.module.scss'
+// @ts-ignore
+import {data} from '../store/pairs.tsx'
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../app/store";
-import {updateCurrency, disableModal} from '../features/modal/modalSlice'
-
+import {RootState} from "../store/store";
+import {updateCurrency, disableModal} from '../store/modalSlice'
 
 export const Modal = () => {
     const visibleModal = useSelector((state: RootState) => state.modal.visibleModal.value)
@@ -26,7 +27,7 @@ export const Modal = () => {
                     <option>USD</option>
                     <option>UAH</option>
                     <option>EUR</option>
-                    {data.map(el => <option key={el}>{el}</option>)}
+                    {data.map((el:string) => <option key={el}>{el}</option>)}
                 </select>
             </div>
         </div>

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
-import {RootState} from "../app/store";
+import {RootState} from "../store/store";
+// @ts-ignore
 import S from '../styles/dataLines.module.scss'
 
-const Page2 = () => {
+const CurrentRates = () => {
     const [formattingName, setFormattingName] = useState(['']);
     const [formattingValues, setFormattingValues] = useState([0]);
     const currentlyCurrency = useSelector((state: RootState) => state.modal.currency.value)
@@ -24,10 +25,10 @@ const Page2 = () => {
     return (
         <div>
             {formattingName.map((el, idx) => <div style={{display: "flex"}}>
-                <div className={S.line}>{`Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx].toFixed(2)} ${currentlyCurrency}`}</div>
+                <div className={S.line}>{`Curr: ${formattingName[idx]}, Rate: ${formattingValues[idx].toFixed(4)} ${currentlyCurrency}`}</div>
             </div>)}
         </div>
     );
 };
 
-export default Page2;
+export default CurrentRates;
